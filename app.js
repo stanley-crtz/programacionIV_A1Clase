@@ -11,11 +11,17 @@ document.addEventListener("DOMContentLoaded", (event) => {
             Telefono = document.querySelector("#txtTelefonoAlumno").value
         ;
 
+        var ClaveCodigo = "Codigo"+Codigo;
+        var ClaveNombre = "Nombre"+Codigo;
+        var ClaveDireccion = "Direccion"+Codigo;
+        var ClaveTelefono = "Telefono"+Codigo;
+
+
         if('localStorage' in window){
-            window.localStorage.setItem("Codigo",Codigo);
-            window.localStorage.setItem("Nombre",Nombre);
-            window.localStorage.setItem("Direccion",Direccion);
-            window.localStorage.setItem("Telefono",Telefono);
+            window.localStorage.setItem(ClaveCodigo, Codigo);
+            window.localStorage.setItem(ClaveNombre, Nombre);
+            window.localStorage.setItem(ClaveDireccion, Direccion);
+            window.localStorage.setItem(ClaveTelefono, Telefono);
         }
         else{
             alert("No se pudo Guardar");
@@ -25,10 +31,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     document.querySelector("#btnRecuperarAlumno").addEventListener("click", (e) => {
         if('localStorage' in window){
-            document.querySelector("#txtCodigoAlumno").value = window.localStorage.getItem("Codigo");
-            document.querySelector("#txtNombreAlumno").value = window.localStorage.getItem("Nombre");
-            document.querySelector("#txtDireccionAlumno").value = window.localStorage.getItem("Direccion");
-            document.querySelector("#txtTelefonoAlumno").value = window.localStorage.getItem("Telefono");
+
+            let Codigo = document.querySelector("#txtCodigoAlumno").value;
+
+            if(Codigo != ""){
+
+                document.querySelector("#txtCodigoAlumno").value = window.localStorage.getItem("Codigo" + Codigo);
+                document.querySelector("#txtNombreAlumno").value = window.localStorage.getItem("Nombre" + Codigo);
+                document.querySelector("#txtDireccionAlumno").value = window.localStorage.getItem("Direccion" + Codigo);
+                document.querySelector("#txtTelefonoAlumno").value = window.localStorage.getItem("Telefono" + Codigo);
+            }
+            else{
+                alert("Ingrese un codigo para buscar");
+            }
         }
         else{
             alert("No se pudo Recuperar");
