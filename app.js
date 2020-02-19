@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         var ClaveNombre = "Nombre"+Codigo;
         var ClaveDireccion = "Direccion"+Codigo;
         var ClaveTelefono = "Telefono"+Codigo;
-
+        
 
         if('localStorage' in window){
             window.localStorage.setItem(ClaveCodigo, Codigo);
