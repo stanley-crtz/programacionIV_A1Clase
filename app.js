@@ -9,6 +9,18 @@ document.addEventListener("DOMContentLoaded", e => {
 
         var Convertir = document.querySelector("#cboTipos").value;
 
+        var MonedasValor = ["dolar", "euro", "quetzal", "lempira", "cordoba"];
+        var MonedasText = ["Dolar", "Euro", "Quetzal", "Lempira", "Cordoba"];
+
+        var LongitudValor = ["metro", "kilometro", "centimetro", "pie", "pulgada"];
+        var LongitudText = ["Metro", "Kilometro", "Centimetro", "Pie", "Pulgada"];
+
+        var AlmacenamientoValor = ["byte", "kilobit", "megabit", "gigabit", "terabit"];
+        var AlmacenamientoText = ["Byte", "Kilobit", "Megabit", "Gigabit", "Terabit"];
+
+        var TiempoValor = ["milisegundo", "segundo", "minuto", "hora", "dia"];
+        var TiempoText = ["Milisegundo", "Segundo", "Minuto", "Hora", "Dia"];
+
         console.log(Convertir);
 
         selDe.length = 0;
@@ -17,56 +29,36 @@ document.addEventListener("DOMContentLoaded", e => {
         switch (Convertir){
 
             case "Moneda":
-                selDe.options[0] = new Option("Dolar","dolar");
-                selDe.options[1] = new Option("Euro","euro");
-                selDe.options[2] = new Option("Quetzal", "quetzal");
-                selDe.options[3] = new Option("Lempira", "lempira");
-                selDe.options[4] = new Option("Cordoba", "cordoba");
+                
+                for (let i = 0; i < MonedasValor.length; i++) {
+                    selDe.options[i] = new Option(MonedasText[i],MonedasValor[i]);
+                    selA.options[i] = new Option(MonedasText[i],MonedasValor[i]);
+                }
 
-                selA.options[0] = new Option("Dolar","dolar");
-                selA.options[1] = new Option("Euro","euro");
-                selA.options[2] = new Option("Quetzal", "quetzal");
-                selA.options[3] = new Option("Lempira", "lempira");
-                selA.options[4] = new Option("Cordoba", "cordoba");
                 break;
             case "Longitud":
-                selDe.options[0] = new Option("Metro","metro");
-                selDe.options[1] = new Option("Kilometro","kilometro");
-                selDe.options[2] = new Option("Centimetro", "centimetro");
-                selDe.options[3] = new Option("Pie", "pie");
-                selDe.options[4] = new Option("Pulgada", "pulgada");
+                
+                for (let i = 0; i < LongitudValor.length; i++) {
+                    selDe.options[i] = new Option(LongitudText[i],LongitudValor[i]);
+                    selA.options[i] = new Option(LongitudText[i],LongitudValor[i]);
+                }
 
-                selA.options[0] = new Option("Metro","metro");
-                selA.options[1] = new Option("Kilometro","kilometro");
-                selA.options[2] = new Option("Centimetro", "centimetro");
-                selA.options[3] = new Option("Pie", "pie");
-                selA.options[4] = new Option("Pulgada", "pulgada");
                 break;
             case "Almacenamiento":
-                selDe.options[0] = new Option("Byte","byte");
-                selDe.options[1] = new Option("Kilobit","kilobit");
-                selDe.options[2] = new Option("MegaBit", "megabit");
-                selDe.options[3] = new Option("GigaBit", "gigabit");
-                selDe.options[4] = new Option("TeraBit", "terabit");;
+                
+                for (let i = 0; i < AlmacenamientoValor.length; i++) {
+                    selDe.options[i] = new Option(AlmacenamientoText[i],AlmacenamientoValor[i]);
+                    selA.options[i] = new Option(AlmacenamientoText[i],AlmacenamientoValor[i]);
+                }
 
-                selA.options[0] = new Option("Byte","byte");
-                selA.options[1] = new Option("Kilobit","kilobit");
-                selA.options[2] = new Option("MegaBit", "megabit");
-                selA.options[3] = new Option("GigaBit", "gigabit");
-                selA.options[4] = new Option("TeraBit", "terabit");
                 break;
             case "Tiempo":
-                selDe.options[0] = new Option("Milisegundo","milisegundo");
-                selDe.options[1] = new Option("Segundo","segundo");
-                selDe.options[2] = new Option("Minuto", "minuto");
-                selDe.options[3] = new Option("Hora", "hora");
-                selDe.options[4] = new Option("Dia", "dia");
+                
+                for (let i = 0; i < TiempoValor.length; i++) {
+                    selDe.options[i] = new Option(TiempoText[i],TiempoValor[i]);
+                    selA.options[i] = new Option(TiempoText[i],TiempoValor[i]);
+                }
 
-                selA.options[0] = new Option("Milisegundo","milisegundo");
-                selA.options[1] = new Option("Segundo","segundo");
-                selA.options[2] = new Option("Minuto", "minuto");
-                selA.options[3] = new Option("Hora", "hora");
-                selA.options[4] = new Option("Dia", "dia");
                 break;
 
         }
@@ -91,26 +83,14 @@ document.addEventListener("DOMContentLoaded", e => {
 
             case "Moneda":
 
-                let Monedas = {
-                    "dolar":1,
-                    "euro":0.93,
-                    "quetzal":7.63,
-                    "lempira":24.9,
-                    "cordoba":34.19
-                };
+                let Monedas = {"dolar":1, "euro":0.93, "quetzal":7.63, "lempira":24.9, "cordoba":34.19 };
 
                 $res.innerHTML = `Respuesta: ` + (Monedas[a]/Monedas[de]*cantidad).toFixed(2);
 
                 break;
             case "Longitud":
 
-                let Longitud = {
-                    "metro":1,
-                    "kilometro":0.001,
-                    "centimetro":100,
-                    "pie":3.281,
-                    "pulgada":39.37
-                };
+                let Longitud = { "metro":1, "kilometro":0.001, "centimetro":100, "pie":3.281, "pulgada":39.37};
 
                 $res.innerHTML = `Respuesta: ` + (Longitud[a]/Longitud[de]*cantidad).toFixed(3);
 
@@ -118,13 +98,7 @@ document.addEventListener("DOMContentLoaded", e => {
 
             case "Almacenamiento":
 
-                let Almacenamiento = {
-                    "byte":125000,
-                    "kilobit":1000,
-                    "megabit":1,
-                    "gigabit":0.001,
-                    "terabit":0.000001
-                };
+                let Almacenamiento = {"byte":125000, "kilobit":1000, "megabit":1, "gigabit":0.001, "terabit":0.000001};
 
                 $res.innerHTML = `Respuesta: ` + (Almacenamiento[a]/Almacenamiento[de]*cantidad).toFixed(6);
 
@@ -132,13 +106,7 @@ document.addEventListener("DOMContentLoaded", e => {
             
             case "Tiempo":
 
-                let Tiempo = {
-                    "milisegundo":60000,
-                    "segundo":60,
-                    "minuto":1,
-                    "hora":0.0166667,
-                    "dia":0.000694444
-                };
+                let Tiempo = {"milisegundo":60000, "segundo":60, "minuto":1, "hora":0.0166667, "dia":0.000694444 };
 
                 $res.innerHTML = `Respuesta: ` + (Tiempo[a]/Tiempo[de]*cantidad).toFixed(2);
 
