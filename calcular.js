@@ -4,8 +4,17 @@ document.addEventListener("DOMContentLoaded", e => {
 
     form.addEventListener("submit", event => {
 
-        fetch
+        event.preventDefault();
+        
+        let Opciones = document.querySelector("#Operacion").value;
+        let Valores = document.querySelector("#txtDatos").value;
 
-    })
+        fetch(`estadistico.php?Opcion=${Opciones}&Valores=${Valores}`)
+            .then(resp=>resp.text())
+            .then(respuesta=>{
+                document.getElementById("lblRespuesta").innerHTML = respuesta;
+            });
 
-})
+    });
+
+});
