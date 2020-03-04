@@ -23,6 +23,9 @@
             case 'Mediana':
                 echo Mediana($array);
                 break;
+            case 'Armonica':
+                echo Armonica($array);
+                break;
         }
 
     } else{
@@ -102,28 +105,44 @@
     function Mediana($matriz){
 
         $valorTemporal = 0;
-        $Size = sizeof($matriz);
+        $Size = sizeof($matriz)-1;
 
         for ($i=0; $i < $Size; $i++) { 
             
             for ($j=0; $j < $Size; $j++) { 
-                
-                if($matriz[$j] > $matriz[$j + 1]){
-                    $valorTemporal = $matriz[$j];
-                    $matriz[$j] = $matriz[$j + 1];
-                    $matriz[$j + 1] = $valorTemporal;
+
+                $jM = $j + 1;
+
+                if($matriz["$j"] > $matriz["$jM"]){
+
+                    $valorTemporal = $matriz["$j"];
+
+                    $matriz["$j"] = $matriz["$jM"];
+
+                    $matriz["$jM"] = $valorTemporal;
+
                 }
 
             }
         }
 
-        $datos = "";
+        $registros = number_format((sizeof($matriz))/2,0)-1;
+
+        return $matriz["$registros"];
+        
+    }
+
+    function Armonica($matriz){
+
+        $sumas = 0;
         for ($i=0; $i < sizeof($matriz); $i++) { 
-            $datos = $datos.$matriz["$i"];
+            
+            $sumas = $sumas + ( 1 / intval($matriz["$i"]));
         }
 
-        return $datos;
-        
+        $total = number_format(sizeof($matriz) / number_format($sumas,2),2);
+
+        return $total;
     }
 
 ?>
