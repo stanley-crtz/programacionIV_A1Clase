@@ -5,28 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Bienvenido a Programacion IV</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
 </head> 
 <body>
     <form method="get" id="frmOperacion">
 
-        <select name="Operacion" id="Operacion">
-            <option value="Media">Media</option>
-            <option value="des_Estandar">Desviacion Estandar</option>
-            <option value="des_Tipica">Desviacion Tipica</option>
-            <option value="Moda">Moda</option>
-            <option value="Mediana">Mediana</option>
-            <option value="Armonica">Armonica</option>
-        </select>
+        <div class="contenedor">
+            <select name="Operacion" id="Operacion">
+                <option value="Media">Media</option>
+                <option value="des_Estandar">Desviacion Estandar</option>
+                <option value="des_Tipica">Desviacion Tipica</option>
+                <option value="Moda">Moda</option>
+                <option value="Mediana">Mediana</option>
+                <option value="Armonica">Armonica</option>
+            </select>
 
-        <input  type="text" name="txtDatos" placeholder="Separe por una ',' los digitos">
+            <br>
+    
+            <input  type="text" name="txtDatos" placeholder="Separe por una ',' los digitos">
 
-        <label for="txtdatos">Calculando...</label>
-        
+            <br>
+    
+            <label for="txtdatos">Calculando...</label>
+            
+            <br>
+    
+            <input type="submit" value="Calcular">
+        </div>
 
-        <input type="submit" value="Calcular">
         
     </form>
-    <script src="app.js"></script>
+    <script src="calcular.js"></script>
 </body>
 </html>
