@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", e => {
 
     form.addEventListener("submit", event => {
 
-        let Opciones = document.querySelector("Operacion").value;
+        fetch
 
     })
 
