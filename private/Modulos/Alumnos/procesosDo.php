@@ -4,7 +4,7 @@
 
     $conexion = new DB('localhost','root','','db_academica');
     
-    $alumno = new alumno($conexion);
+    $docente = new alumno($conexion);
 
     $proceso = '';
 
@@ -12,9 +12,9 @@
         $proceso = $_GET['proceso'];
     }
 
-    $alumno -> $proceso( $_GET['alumno'] );
+    $docente -> $proceso( $_GET['docente'] );
     
-    print_r(json_encode($alumno->respuesta));
+    print_r(json_encode($docente->respuesta));
 
 
     class alumno{
@@ -28,20 +28,14 @@
 
         }
 
-        public function recibirDatos($alumno){
+        public function recibirDatos($docente){
 
-            $this->datos = json_decode($alumno, true);
+            $this->datos = json_decode($docente, true);
             $this->validar_datos();
 
         }
 
         private function validar_datos(){
-
-            if ( empty( $this->datos['codigo']) ) {
-                
-                $this->respuesta['msg'] = 'Por favor ingrese el codigo del estudiante';
-
-            }
 
             if ( empty( $this->datos['nombre']) ) {
                 
@@ -55,18 +49,17 @@
 
             }
 
-            $this->almacenar_alumno();
+            $this->almacenar_docente();
 
         }
 
-        private function almacenar_alumno(){
+        private function almacenar_docente(){
 
             if ( $this->respuesta['msg'] == 'correco') {
                 
                 if ( $this->datos['accion'] === 'nuevo') {
 
-                    $this->db->consultas('INSERT INTO alumnos (codigo, nombre, direccion, telefono) VALUES (
-                        "'. $this->datos['codigo'] .'", 
+                    $this->db->consultas('INSERT INTO docente (nombre, direccion, telefono) VALUES (
                         "'. $this->datos['nombre'] .'", 
                         "'. $this->datos['direccion'] .'", 
                         "'. $this->datos['telefono'] .'"
