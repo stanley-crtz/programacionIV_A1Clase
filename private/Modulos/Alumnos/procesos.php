@@ -1,9 +1,7 @@
 <?php
+ 
+    include('../../config/config.php');
 
-    include('../../Conexion/DB.php');
-
-    $conexion = new DB('localhost','root','','db_academica');
-    
     $alumno = new alumno($conexion);
 
     $proceso = '';
@@ -12,8 +10,8 @@
         $proceso = $_GET['proceso'];
     }
 
-    $alumno -> $proceso( $_GET['alumno'] );
-    
+    $alumno->$proceso($_GET['alumno']);
+ 
     print_r(json_encode($alumno->respuesta));
 
 
@@ -61,7 +59,7 @@
 
         private function almacenar_alumno(){
 
-            if ( $this->respuesta['msg'] == 'correco') {
+            if ( $this->respuesta['msg'] == 'correcto') {
                 
                 if ( $this->datos['accion'] === 'nuevo') {
 

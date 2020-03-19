@@ -1,8 +1,6 @@
 <?php
 
-    include('../../Conexion/DB.php');
-
-    $conexion = new DB('localhost','root','','db_academica');
+    include('../../config/config.php');
     
     $docente = new alumno($conexion);
 
@@ -55,11 +53,11 @@
 
         private function almacenar_docente(){
 
-            if ( $this->respuesta['msg'] == 'correco') {
+            if ( $this->respuesta['msg'] == 'correcto') {
                 
                 if ( $this->datos['accion'] === 'nuevo') {
 
-                    $this->db->consultas('INSERT INTO docente (nombre, direccion, telefono) VALUES (
+                    $this->db->consultas('INSERT INTO docentes (nombre, direccion, telefono) VALUES (
                         "'. $this->datos['nombre'] .'", 
                         "'. $this->datos['direccion'] .'", 
                         "'. $this->datos['telefono'] .'"
