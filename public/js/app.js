@@ -21,18 +21,20 @@ document.addEventListener("DOMContentLoaded", event => {
         fetch(`public/vistas/${dataset}/${dataset}.html`).then( resp => resp.text() ).then( resp => {
             
             id(`vista-${dataset}`).innerHTML = resp;
-            let btnCerrar = clase(".close");
+            console.log(dataset);
+            
+            let btnCerrar = clase(`.close-${dataset}`);
 
             btnCerrar.addEventListener("click", event => {
 
                 id(`vista-${dataset}`).innerHTML = "";
             });
 
-            let js = script("script"), cuerpo = clase("body");
-
+            let js = script("script");
+            
             js.src = `public/vistas/${dataset}/${dataset}.js`;
 
-            cuerpo.appendChild(js);
+            clase("body").appendChild(js);
 
         });
         
