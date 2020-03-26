@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", event => {
 
                 id(`vista-${dataset}`).innerHTML = "";
             });
-
+            
             let js = script("script");
             
             js.src = `public/vistas/${dataset}/${dataset}.js`;
@@ -39,5 +39,6 @@ document.addEventListener("DOMContentLoaded", event => {
         });
         
     }
+
 
 });

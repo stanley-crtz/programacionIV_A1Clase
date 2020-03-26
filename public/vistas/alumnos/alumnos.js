@@ -1,5 +1,8 @@
 var $ = el => document.querySelector(el), 
-    frmAlumnos = document.getElementById("frmAlumnos");
+    id = el => document.getElementById(el);
+
+var frmAlumnos = id("frmAlumnos"), boton = id("btnBuscar-alumnos");
+
 
 frmAlumnos.addEventListener("submit",e=>{
 
@@ -23,4 +26,23 @@ frmAlumnos.addEventListener("submit",e=>{
         `;
 
     });
+});
+
+boton.addEventListener("click", event => {
+
+        fetch(`public/vistas/alumnos/buscar-alumnos.html`).then( resp => resp.text() ).then( resp => {
+            
+            $(`.modulo-vista-alumnos`).innerHTML = resp;
+
+            let btnCerrar = id(`btn-close-buscar-alumnos`);
+
+            btnCerrar.addEventListener("click", event => {
+                console.log("cerrado");
+                
+                $(`.modulo-vista-alumnos`).innerHTML = "";
+
+            });
+
+        });
+
 });
