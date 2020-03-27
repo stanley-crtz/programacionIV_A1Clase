@@ -1,9 +1,9 @@
-export function modulo(){
+export default function modulo(){
     var $ = el => document.querySelector(el),
         frmBuscarAlumnos = $("#txtBuscarAlumno");
     frmBuscarAlumnos.addEventListener('keyup', e=>{
         traerDatos(frmBuscarAlumnos.value);
-    });
+    }); 
     let modificarAlumno = (alumno)=>{
         $("#frm-alumnos").dataset.accion = 'modificar';
         $("#frm-alumnos").dataset.idalumno = alumno.idAlumno;
