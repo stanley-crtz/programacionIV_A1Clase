@@ -8,17 +8,25 @@
 </head>
 <body>
 
-    <form id="frmDocentes" method="GET">
+    <form id="frmDocentes" data-accion="nuevo" data-iddocente='' method="GET">
 
         <div class="card text-white bg-dark mb-3" style="max-width: 24rem;">
             <div class="card-header">
                 Mantenimiento Docentes
     
-                <button type="button" class="close-docentes" aria-label="Close">
+                <button type="button" class="close close-docentes" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="card-body">
+                <div class="row p-2">
+                    <div class="col-4">
+                        CODIGO
+                    </div>
+                    <div class="col-8">
+                        <input type="text" id="txtCodigoDocente" placeholder="AAA AAA" class="form-control">
+                    </div>
+                </div>
                 <div class="row p-2">
                     <div class="col-4">
                         NOMBRE
@@ -43,10 +51,19 @@
                         <input type="text" id="txtTelefonoDocente" placeholder="0000-0000" class="form-control">
                     </div>
                 </div>
+                <div class="row p-2">
+                    <div class="col-4">
+                        NIT
+                    </div>
+                    <div class="col-8">
+                        <input type="text" id="txtNITDocente" placeholder="0101-010101-101-1" class="form-control">
+                    </div>
+                </div>
                 <div class="row p-2"> 
                     <div class="col-12 text-center">
-                        <input id="btnGuardarAlumnos" type="submit" class="btn btn-outline-primary text-white" value="Guardar">
+                        <input id="btnGuardarDocentes" type="submit" class="btn btn-outline-primary text-white" value="Guardar">
                         <input type="reset" class="btn btn-outline-warning text-white" value="Limpiar">
+                        <input id="btnBuscar-docentes" type="button" class="btn btn-outline-success mostrar-buscar-alumnos text-white" data-modulo="docentes" data-form="buscar-docentes" value="Buscar">
                     </div>
                 </div>
                 <div class="row p-2">
@@ -57,5 +74,8 @@
             </div>
         </div>
     </form> 
+
+    <div class="modulo-vista-docentes"></div>
+
 </body>
 </html>
