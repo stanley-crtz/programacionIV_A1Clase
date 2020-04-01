@@ -112,7 +112,7 @@
                         "direccion = '". $this->datos['direccion'] ."',".
                         "nombre = '". $this->datos['nombre'] ."',".
                         "telefono = '". $this->datos['telefono'] ."' ".
-                        "WHERE id_Alumno = ". $this->datos['id']
+                        "WHERE id_Alumno = ". $this->datos['id_Alumno']
                     );
 
                     $this->respuesta['msg'] = 'Registro modificado correctamente';

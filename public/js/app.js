@@ -1,44 +1,25 @@
-var $ = el => document.querySelectorAll(el), 
-    id = el => document.getElementById(el), 
-    clase = el => document.querySelector(el), 
-    script = el => document.createElement(el);
-
-document.addEventListener("DOMContentLoaded", event => {
+function init() {
     
-    event.preventDefault();
+    $("[class*='mostrar']").click(function () {
 
-    var Modulos = $(".mostrar");
-
-    for (let i = 0; i < Modulos.length; i++) {
-        Modulos[i].addEventListener("click",mostrarInformacion);
+        let modulo = $(this).data('modulo');
         
-    }
+        console.log(modulo);
 
-    function mostrarInformacion(){
-        
-        let dataset = this.dataset.modulo;
+        $(`#vista-${modulo}`).load(`public/vistas/${modulo}/${modulo}.html`, function () {
 
-        fetch(`public/vistas/${dataset}/${dataset}.html`).then( resp => resp.text() ).then( resp => {
-            
-            id(`vista-${dataset}`).innerHTML = resp;
-            console.log(dataset);
-            
-            let btnCerrar = clase(`.close-${dataset}`);
+            $(`#close-${modulo}`).click(function () {
+                
+                $(`#vista-${modulo}`).hide( "puff", "slow" );
 
-            btnCerrar.addEventListener("click", event => {
-
-                id(`vista-${dataset}`).innerHTML = "";
             });
-            
-            let js = script("script");
-            
-            js.src = `public/vistas/${dataset}/${dataset}.js`;
 
-            clase("body").appendChild(js);
+        }).draggable().show( "scale", 1000 );
 
-        });
-        
-    }
+        init();
 
+    });
 
-});
+}
+
+init();
