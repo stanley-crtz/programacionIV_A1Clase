@@ -10,7 +10,7 @@
 </head>
 <body>
 
-    <form v-on:submit.prevent="guardarAlumno" data-accion="nuevo" data-idalumno='' id="frm-alumnos" method="post">
+    <form v-on:submit.prevent="guardarAlumno" class="modulos" data-accion="nuevo" data-idalumno='' id="frm-alumnos" method="post">
         <div class="card text-white bg-dark mb-3" style="max-width: 24rem;">
             <div class="card-header">
                 Mantenimiento Alumnos
@@ -69,8 +69,6 @@
             </div>
         </div>
     </form>
-
-    <div id="modulo-vista-alumnos"></div>
 
     <script src="public/vistas/alumnos/alumnos.js"></script>
 
