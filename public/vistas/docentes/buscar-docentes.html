@@ -11,7 +11,7 @@
             <div class="car-header">
                 BUSQUEDA DOCENTES
     
-                <button type="button" id="btn-close-buscar-docentes" class="close close-docentes" aria-label="Close">
+                <button type="button" id="btn-close-buscar-docentes" v-on:click="cerrarBuscarDocentes" class="close close-docentes" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -20,7 +20,7 @@
                     <thead>
                         <tr>
                             <th colspan="5">
-                                <input type="text" id="txtBuscarDocente" placeholder="Codigo, Nombre o NIT" class="form-control">
+                                <input type="text" v-model="valor" v-on:keyup="buscarDocentes" id="txtBuscarDocente" placeholder="Codigo, Nombre o NIT" class="form-control">
                             </th>
                         </tr>
                         <tr>
@@ -33,6 +33,18 @@
                         </tr>
                     </thead>
                     <tbody>
+
+                        <tr v-for="docentes in data_docentes" :key="docentes.id_Docente">
+                            <td>{{ docentes.codigo }}</td>
+                            <td>{{ docentes.nombre }}</td>
+                            <td>{{ docentes.direccion }}</td>
+                            <td>{{ docentes.telefono }}</td>
+                            <td>{{ docentes.NIT }}</td>
+                            <td>
+                                <input v-on:click="verificacionEliminacion(docentes.id_Docente)" type="button" class="btn btn-outline-danger text-white" value="Delete">
+                                <input v-on:click="modificarDocente(docentes)" type="button" class="btn btn-outline-warning text-white" value="Update">
+                            </td>
+                        </tr>
                         
                     </tbody>
                 </table>
@@ -40,5 +52,7 @@
         </div>
     </form>
     </div>
+
+    <script src="public/vistas/docentes/buscar-docentes.js"></script>
 </body>
 </html>

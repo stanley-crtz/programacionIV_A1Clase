@@ -1,7 +1,11 @@
 var appalumno = new Vue({
+
     el:'#frm-alumnos',
+
     data:{
+
         alumno:{
+
             idAlumno  : $("#frm-alumnos").data("idalumno"),
             accion    : $("#frm-alumnos").data("accion"),
             codigo    : '',
@@ -9,10 +13,14 @@ var appalumno = new Vue({
             direccion : '',
             telefono  : '',
             msg       : ''
+
         }
+
     },
     methods:{
+
         guardarAlumno:function(){
+
             console.log(JSON.stringify(this.alumno));
             
             fetch(`private/Modulos/Alumnos/procesos.php?proceso=recibirDatos&alumno=${JSON.stringify(this.alumno)}`).then( resp=>resp.json() ).then(resp=>{
@@ -25,6 +33,7 @@ var appalumno = new Vue({
                 this.alumno.accion = 'nuevo';
                 
             });
+
         },
         buscarAlumno:function(){
 
@@ -33,6 +42,9 @@ var appalumno = new Vue({
                 appBuscarAlumnos.buscarAlumno();
 
             }).draggable().show( "scale", 1000 );
+
         }
+
     }
+    
 });

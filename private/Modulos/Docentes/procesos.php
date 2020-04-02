@@ -6,8 +6,8 @@
 
     $proceso = '';
 
-    if ( isset( $_GET['procesoDo'] ) && strlen( $_GET['procesoDo'] ) > 0) {
-        $proceso = $_GET['procesoDo'];
+    if ( isset( $_GET['proceso'] ) && strlen( $_GET['proceso'] ) > 0) {
+        $proceso = $_GET['proceso'];
     }
 
     $docente -> $proceso( $_GET['docente'] );
@@ -59,7 +59,7 @@
 
             }
 
-            if ( empty( $this->datos['nit']) ) {
+            if ( empty( $this->datos['NIT']) ) {
                 
                 $this->respuesta['msg'] = 'Por favor ingrese el nit del docente';
 
@@ -85,7 +85,7 @@
                         "'. $this->datos['nombre'] .'", 
                         "'. $this->datos['direccion'] .'", 
                         "'. $this->datos['telefono'] .'",
-                        "'. $this->datos['nit'] .'"
+                        "'. $this->datos['NIT'] .'"
                         )'
                     );
 
@@ -125,8 +125,8 @@
                         "direccion = '". $this->datos['direccion'] ."',".
                         "nombre = '". $this->datos['nombre'] ."',".
                         "telefono = '". $this->datos['telefono'] ."',".
-                        "NIT = '". $this->datos['nit'] ."' ".
-                        "WHERE id_Docente = ". $this->datos['id']
+                        "NIT = '". $this->datos['NIT'] ."' ".
+                        "WHERE id_Docente = ". $this->datos['id_Docente']
                     );
 
                     $this->respuesta['msg'] = 'Registro modificado correctamente';
