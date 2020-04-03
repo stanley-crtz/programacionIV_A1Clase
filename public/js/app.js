@@ -16,7 +16,6 @@ function init() {
 
         }).draggable();
 
-        init();
 
     });
 
