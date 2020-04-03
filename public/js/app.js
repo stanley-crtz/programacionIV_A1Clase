@@ -10,11 +10,11 @@ function init() {
 
             $(`#close-${modulo}`).click(function () {
                 
-                $(`#vista-${modulo}`).hide( "puff", "slow" );
+                $(`#vista-${modulo}`).html("");
 
             });
 
-        }).draggable().show( "scale", 1000 );
+        }).draggable();
 
         init();
 
