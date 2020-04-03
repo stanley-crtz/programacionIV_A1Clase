@@ -39,7 +39,7 @@ var appDocente = new Vue({
 
             $(`#modulo-vista-docentes`).load(`public/vistas/docentes/buscar-docentes.html`, function () {
 
-                appBuscarDocentes.buscarDocentes();
+                appBuscarDocentes.buscarDocentes().show( "scale", 1000 );
 
             }).draggable().show( "scale", 1000 );
 

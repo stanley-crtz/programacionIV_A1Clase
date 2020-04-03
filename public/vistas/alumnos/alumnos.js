@@ -39,7 +39,7 @@ var appalumno = new Vue({
 
             $(`#modulo-vista-alumnos`).load(`public/vistas/alumnos/buscar-alumnos.html`, function () {
 
-                appBuscarAlumnos.buscarAlumno();
+                appBuscarAlumnos.buscarAlumno().show( "scale", 1000 );
 
             }).draggable().show( "scale", 1000 );
 
