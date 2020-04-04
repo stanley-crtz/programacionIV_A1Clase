@@ -35,7 +35,7 @@ var appBuscarAlumnos = new Vue({
             });
         },
         cerrarBuscarAlumnos:function(){
-            $(`#modulo-vista-alumnos`).html("");
+            $(`#modulo-vista-alumnos`).hide( "puff", "slow" );
         }
     },
     created:function(){
