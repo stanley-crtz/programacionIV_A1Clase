@@ -1,0 +1,86 @@
+<form v-on:submit.prevent="guardarMunicipio" method="get" id="frmMunicipio" data-accion="nuevo">
+
+    <div class="card text-white bg-info mb-3" style="width: 100%;">
+        <div class="card-header text-center">
+            <h2>REGISTRO DE DEPARTAMENTOS</h2>
+        </div>
+        <div class="card-body">
+            <div class="row p-2">
+                <div class="col-4">
+                    Municipio
+                </div>
+                <div class="col-8">
+                    <input type="text" v-model="Municipio.Nombre" name="" placeholder="Ingrese su nombre" id="">
+                </div>
+            </div>
+            <div class="row p-2"> 
+                <div class="col-12 text-center">
+                    <input type="submit" class="btn btn-outline-success text-white" value="Guardar">
+                    <input type="reset" class="btn btn-outline-warning text-white" value="Limpiar">
+                    <button v-on:click="buscarMunicipio()" type="button" class="btn btn-outline-dark mostrar-buscar-Municipio text-white" data-toggle="modal" data-target="#exampleModalCenter">
+                        Buscar
+                      </button>
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-12 text-center">
+                    <div class="alert alert-success" role="alert">
+                        {{ Municipio.msg }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Busqueda de Municipio</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" id="frm-buscar-Municipio">
+            <div class="card text-white bg-primary mb-3" style="max-width: 48rem;">
+                <div class="car-header">
+                    BUSQUEDA DE Municipio
+                </div>
+                <div class="card-body">
+                    <table id="tbl-buscar-Municipio" class="table-striped table-primarytable-hover">
+                        <thead>
+                            <tr>
+                                <th colspan="5">
+                                    <input type="text" v-model="valor" v-on:keyup="buscarMunicipio" placeholder="Nombre del cliente" class="form-control">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>Nombre</th>
+                                <th colspan="2"> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="depart in Municipioes" :key="depart.id_perfil">
+                                <td>{{ depart.departamento }}</td>
+                                <td>
+                                    <input v-on:click="verificacionEliminacion(depart.id_numero_departamento)" type="button" class="btn btn-outline-danger text-white" value="Delete">
+                                    <input v-on:click="modificarMunicipio(depart)" data-dismiss="modal" type="button" class="btn btn-outline-warning text-white" value="Update">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+        
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script src="./PUBLIC/Module/Configuraciones/Departamento/Departamento.js"></script>
