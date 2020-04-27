@@ -93,6 +93,9 @@
             if( $this->datos['accion'] == 'nuevo'){
                 $this->almacenar_RegistrarUsuario();
             }
+            elseif( $this->datos['accion'] == 'login'){
+                $this->validarUsuario();
+            }
             else{
                 $this->modificarRegistrarUsuario();
             }
@@ -118,6 +121,20 @@
         public function buscarRegistrarUsuario($valor=''){
             $this->db->consultas('SELECT perfil_de_usuario.id_perfil, perfil_de_usuario.nombres_completos, perfil_de_usuario.apellidos_completo, genero.genero, estatus.estatus, perfil_de_usuario.fecha_de_nacimiento, perfil_de_usuario.DUI, perfil_de_usuario.NIT, perfil_de_usuario.usuario, perfil_de_usuario.contraseña FROM perfil_de_usuario, genero, estatus WHERE genero.id_genero = perfil_de_usuario.id_genero AND perfil_de_usuario.id_estatus = estatus.id_estatus AND perfil_de_usuario.nombres_completos LIKE "%'.$valor.'%"');
             return $this->respuesta = $this->db->obtener_data();
+        }
+
+        public function validarUsuario(){
+            $this->db->consultas('SELECT perfil_de_usuario.nombres_completos FROM perfil_de_usuario WHERE perfil_de_usuario.usuario = "'.$this->datos['Usuario'].'" AND perfil_de_usuario.contraseña = "'.$this->datos['Password'].'"');
+
+            $Usuario = $this->db->obtener_data();
+
+            $imprimirUsuario = '';
+
+            for ($i=0; $i < count($Usuario); $i++) { 
+                $imprimirUsuario = $Usuario[$i]['nombres_completos'];
+            }
+
+            return $this->respuesta = ["nombre" => $Usuario, "cont" => count($Usuario)];
         }
 
         public function traer_para_vselect(){

@@ -3,6 +3,8 @@ const navLinks = document.querySelector(".nav-links");
 const links = document.querySelectorAll(".nav-links li");
 
 document.addEventListener("DOMContentLoaded", e=>{
+
+  obtenerSesion();
   $("#Mostrar-Sub-Contenidos").hide("fold", "slow");
 
   setTimeout(function () {
@@ -50,3 +52,22 @@ hamburger.addEventListener("click", () => {
   });
 
 });
+
+function obtenerSesion(){
+
+  var nombreUsuario = sessionStorage.getItem('nombre');
+  return (nombreUsuario ===null || nombreUsuario === undefined)?window.location='../programacionIV_A1Clase/login.html':false;
+  
+}
+
+function cerrarSesion(){
+  alertify.confirm('Alerta', '¿Está seguro de cerrar esta sesión?',function(){
+      
+      sessionStorage.clear();
+      window.location = '../programacionIV_A1Clase/login.html';
+      
+  }, function() {
+      alertify.error('Cancelado');
+      
+  });
+}

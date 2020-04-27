@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>SRP</title>
+    <meta charset="UTF-8" />
+	
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	 <!-- Alert -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+	<link rel="stylesheet" href="https://unpkg.com/vue-select@3.0.0/dist/vue-select.css">
+	
+	<link rel="stylesheet" type="text/css" href="PUBLIC/CSS/styleLogin.css">
+</head>
+<body>
+	<div class="Login">
+		<img class="wave" src="PUBLIC/img/wave.png">
+		<div class="container">
+			
+			<div class="img">
+				<img src="PUBLIC/img/bg.svg">
+			</div>
+			<div class="login-content" >
+				<form method="GET" id="frmLogin">
+					<img src="PUBLIC/img/avatar.svg">
+					<h2 class="title">Bienvenido</h2>
+					<div class="input-div one">
+					<div class="i">
+							<i class="fas fa-user"></i>
+					</div>
+					<div class="div">
+							<h5>Usuario</h5>
+							<input type="text" class="input" id="Usuario">
+					</div>
+					</div>
+					<div class="input-div pass">
+					<div class="i"> 
+							<i class="fas fa-lock"></i>
+					</div>
+					<div class="div">
+							<h5>Contraseña</h5>
+							<input type="password" class="input" id="Password">
+					</div>
+					</div>
+					<a href="#">¿Has olvidado la contraseña?</a>
+					<input type="submit" class="btn" value="Login">
+					<input type="button" value="Crear Cuenta" class="btn" data-toggle="modal" data-target="#exampleModalCenter">
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="exampleModalCenterTitle">Busqueda de RegistrarUsuario</h5>
+			  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+			<div class="modal-body">
+				<form v-on:submit.prevent="guardarRegistrarUsuario" method="get" id="frmRegistrarUsuario" data-accion="nuevo" style="width: 100%;">
+
+					<div class="row p-2">
+						<div class="col-4">
+							Nombres
+						</div>
+						<div class="col-8">
+							<input type="text" v-model="RegistrarUsuario.Nombre" name="" placeholder="Ingrese su nombre" id="">
+						</div>
+					</div>
+					<div class="row p-2">
+						<div class="col-4">
+							Apellidos
+						</div>
+						<div class="col-8">
+							<input type="text" v-model="RegistrarUsuario.Apellido" name="" placeholder="Ingrese su apellido" id="">
+						</div>
+					</div>
+					<div class="row p-2">
+						<div class="col-4">
+							Genero
+						</div>
+						<div class="col-8">
+							<v-select v-model="RegistrarUsuario.Genero" :options="Genero"></v-select>
+						</div>
+					</div>
+					<div class="row p-2">
+						<div class="col-4">
+							Estatus
+						</div>
+						<div class="col-8">
+							<v-select v-model="RegistrarUsuario.Estatus" :options="Status"></v-select>
+						</div>
+					</div>
+					<div class="row p-2">
+						<div class="col-4">
+							Nacimiento
+						</div>
+						<div class="col-8">
+							<input v-model="RegistrarUsuario.Fecha" type="date">
+						</div>
+					</div>
+					<div class="row p-2">
+						<div class="col-4">
+							DUI
+						</div>
+						<div class="col-8">
+							<input type="text" v-model="RegistrarUsuario.DUI" name="" placeholder="Ingrese su numero de identidad" id="">
+						</div>
+					</div>
+					<div class="row p-2">
+						<div class="col-4">
+							NIT 
+						</div>
+						<div class="col-8">
+							<input type="text" v-model="RegistrarUsuario.NIT" name="" placeholder="Ingrese el numero de su NIT" id="">
+						</div>
+					</div>
+					<div class="row p-2">
+						<div class="col-4">
+							Usuario 
+						</div>
+						<div class="col-8">
+							<input type="text" v-model="RegistrarUsuario.Usuario" name="" placeholder="Ingrese el nombre de usuario" id="">
+						</div>
+					</div>
+					<div class="row p-2">
+						<div class="col-4">
+							Contraseña 
+						</div>
+						<div class="col-8">
+							<input type="text" v-model="RegistrarUsuario.Password" name="" placeholder="******" id="">
+						</div>
+					</div>
+					<div class="row p-2"> 
+						<div class="col-12 text-center">
+							<input type="submit" class="btn btn-outline-success text-white" value="Guardar">
+							
+						</div>
+					</div>
+					<div class="row p-2">
+						<div class="col-12 text-center">
+							<div class="alert alert-success" role="alert">
+								{{ RegistrarUsuario.msg }}
+							</div>
+						</div>
+					</div>
+				
+				</form>
+			
+			</div>
+			<div class="modal-footer">
+				by Code Master
+			</div>
+		  </div>
+		</div>
+	  </div>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/vue-select@3.0.0"></script>
+	<script src="./PUBLIC/Module/RegistroUsuario/Registrar/RegistrarUsuario.js"></script>
+	<script type="text/javascript" src="PUBLIC/JS/main.js"></script>
+</body>
+</html>
