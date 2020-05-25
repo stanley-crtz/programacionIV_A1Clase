@@ -1,72 +1,41 @@
+
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>SRP</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="Public/CSS/Inicio.css">
+  <link rel="stylesheet" href="Public/CSS/style.css">
+  
 
-    <!-- Alert -->
-    <!-- CSS -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
-    <!-- Default theme -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
-    <!-- Semantic UI theme -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
-    <!-- Bootstrap theme -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
+</head>
+<body>
+	<div id="CuerpoTrabajo">
+
+  </div>
+  <!-- Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="./PUBLIC/CSS/style.css" />
-    <link rel="stylesheet" href="https://unpkg.com/vue-select@3.0.0/dist/vue-select.css">
-    <!-- Iconos -->
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <title>SRP</title>
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <a class="navbar-brand" href="#">SISTEMA DE REGISTRO DE PROFESIONALES</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-item nav-link navegacion" data-navegar="Inicio" style="margin-right: 10px;" href="#">Inicio <span class="sr-only">(current)</span></a>
-          <a class="nav-item nav-link navegacion" data-navegar="RegistroUsuario" style="margin-right: 10px;" href="#">Usuario</a>
-          <a class="nav-item nav-link navegacion" data-navegar="Configuraciones" style="margin-right: 10px;" href="#">Configuracion</a>
-          <a class="nav-item nav-link navegacion" data-navegar="" style="margin-right: 10px;" href="#">Contactos</a>
-          <a class="nav-item nav-link" onclick="cerrarSesion()" style="margin-right: 10px;" href="#">Cerrar Sesion</a>
-        </div>
-      </div>
-    </nav>
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+  <!-- JQuery UI -->
+  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <!-- Vue JS -->
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <!-- Vue Select -->
+  <script src="https://unpkg.com/vue-select@3.0.0"></script>
 
-    <section class="landing" id="ContenedorPrincipal">
+  <!-- Alertify -->
+  <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 
-      <img id="Banner" style="margin-top: 40px;" src="./PUBLIC/img/Inicio Banner.jpg" alt="Banner INJU" />
+  <!-- CDN Client NodeJS -->
 
-      <ul class="subMenu nav justify-content-center bg-white" style="max-height: 35px; margin-top: -42px; border-radius: 20px; ">
-        <li class="nav-item Mostrar" data-modulo="Informacion">
-          <a class="nav-link">Informacion</a>
-        </li>
-        <li class="nav-itemMostrar" data-modulo="Multimedia">
-          <a class="nav-link">Objetivos</a>
-        </li>
-        <li class="nav-item Mostrar" data-modulo="Noticias">
-          <a class="nav-link">Requisitos</a>
-        </li>
-      </ul>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
 
-      <div class="Contenedor" style="margin-top: 5%;" id="Mostrar-Sub-Contenidos"></div>
-
-    </section>
-
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script src="https://unpkg.com/vue-select@3.0.0"></script>
-    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-    <script src="./PUBLIC/JS/app.js"></script>
-  </body>
+  <script src="Public/JS/App.js"></script>
+  
+</body>
 </html>
