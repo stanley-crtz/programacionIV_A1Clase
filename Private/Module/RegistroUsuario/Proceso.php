@@ -118,18 +118,19 @@
 
         }
         
-        public function buscarRegistrarUsuario($valor=''){
-            $this->db->consultas('SELECT perfil_de_usuario.id_perfil, perfil_de_usuario.Nombre, perfil_de_usuario.img, genero.genero, estatus.estatus, perfil_de_usuario.Fecha_Nacimiento, perfil_de_usuario.DUI, perfil_de_usuario.Usuario, perfil_de_usuario.Pass FROM perfil_de_usuario, genero, estatus WHERE genero.id_genero = perfil_de_usuario.id_genero AND perfil_de_usuario.id_estatus = estatus.id_estatus AND perfil_de_usuario.Nombre LIKE "%'.$valor.'%" ');
+        public function buscarRegistrarUsuario($valores){
+            $this->datos = json_decode($valores, true);
+            $this->db->consultas('SELECT perfil_de_usuario.id_Perfil, perfil_de_usuario.Nombre, YEAR(CURDATE())-YEAR(perfil_de_usuario.Fecha_Nacimiento)  AS Fecha_Nacimiento, perfil_de_usuario.DUI, perfil_de_usuario.Direccion, estatus.estatus, genero.genero, departamento.departamento, municipio.municipio, Zona.Tipo, perfil_de_usuario.Celular, perfil_de_usuario.Correo, perfil_de_usuario.img, registro_universidad.universidad, registro_de_carrera.carrera, imformacion_academica.Fecha_Egreso, Nivel_Docente.Nivel_Docente, Categoria_Docente.Categoria_Docente FROM perfil_de_usuario, estatus, genero, departamento, municipio, registro_universidad, registro_de_carrera, imformacion_academica, Nivel_Docente, Categoria_Docente, Zona WHERE perfil_de_usuario.id_estatus = estatus.id_estatus AND perfil_de_usuario.id_genero = genero.id_genero AND perfil_de_usuario.id_Departamento = departamento.id_numero_departamento AND perfil_de_usuario.id_Municipio = municipio.id_municipio AND perfil_de_usuario.id_Zona = Zona.id_Zona AND perfil_de_usuario.id_Perfil = imformacion_academica.id_perfil AND imformacion_academica.id_universidad = registro_universidad.id_universidad AND imformacion_academica.id_carrera = registro_de_carrera.id_carrera AND imformacion_academica.id_Nivel_Docente = Nivel_Docente.id_Nivel_Docente AND imformacion_academica.Id_Categoria_Docente = Categoria_Docente.id_Categoria_Docente AND perfil_de_usuario.Nombre LIKE "%'.$this->datos['Nombre'].'%" AND registro_de_carrera.carrera LIKE "%'.$this->datos['Carrera'].'%" AND YEAR(CURDATE())-YEAR(perfil_de_usuario.Fecha_Nacimiento) LIKE "%'.$this->datos['Edad'].'%" AND imformacion_academica.Fecha_Egreso LIKE "%'.$this->datos['Egreso'].'%" AND Nivel_Docente.Nivel_Docente LIKE "%'.$this->datos['Nivel'].'%" AND Categoria_Docente.Categoria_Docente LIKE "%'.$this->datos['Categoria'].'%"');
             return $this->respuesta = $this->db->obtener_data();
         }
 
         public function buscarUsuarioMSGR ($valor =''){
-            $this->db->consultas('SELECT registro_cuenta_usuario.msgR FROM registro_cuenta_usuario WHERE registro_cuenta_usuario.id_perfil = '. $valor);
+            $this->db->consultas('SELECT perfil_de_usuario.msgR FROM perfil_de_usuario WHERE perfil_de_usuario.id_Perfil = '. $valor);
             return $this->respuesta = $this->db->obtener_data();
         }
 
         public function buscarUsuarioMSGE ($valor =''){
-            $this->db->consultas('SELECT registro_cuenta_usuario.id_perfil, registro_cuenta_usuario.nombres_completos, registro_cuenta_usuario.msgE FROM registro_cuenta_usuario WHERE registro_cuenta_usuario.nombres_completos LIKE "%'.$valor.'%" ORDER BY registro_cuenta_usuario.msgE DESC');
+            $this->db->consultas('SELECT perfil_de_usuario.id_Perfil, perfil_de_usuario.Nombre, perfil_de_usuario.img, perfil_de_usuario.msgE, perfil_de_usuario.DIa_Hora FROM perfil_de_usuario WHERE perfil_de_usuario.Nombre LIKE "%'. $valor.'%" ORDER BY perfil_de_usuario.DIa_Hora DESC');
             return $this->respuesta = $this->db->obtener_data();
         }
 
@@ -141,17 +142,17 @@
         public function validarUsuario(){
             $this->db->consultas('SELECT registro_cuenta_usuario.id_perfil, registro_cuenta_usuario.nombres_completos FROM registro_cuenta_usuario WHERE registro_cuenta_usuario.usuario = "'.$this->datos['Usuario'].'" AND registro_cuenta_usuario.contraseña = "'.$this->datos['Password'].'"');
 
+            $Access = "Admin";
+
             $Usuario = $this->db->obtener_data();
 
-            // $imprimirUsuario = '';
-            // $imprimirUsuarioId = '';
-
-            // for ($i=0; $i < count($Usuario); $i++) { 
-            //     $imprimirUsuario = $Usuario[$i]['nombres_completos'];
-            //     $imprimirUsuarioId = $Usuario[$i]['id_perfil'];
-            // }
-
-            return $this->respuesta = ["nombre" => $Usuario, "cont" => count($Usuario)];
+            if ( count($Usuario) < 1) {
+                $this->db->consultas('SELECT perfil_de_usuario.id_Perfil as id_perfil, perfil_de_usuario.Nombre as nombres_completos FROM perfil_de_usuario WHERE perfil_de_usuario.Usuario = "'.$this->datos['Usuario'].'" AND perfil_de_usuario.Pass = "'.$this->datos['Password'].'"');
+                $Usuario = $this->db->obtener_data();
+                $Access = 'Cliente';
+            } 
+            
+            return $this->respuesta = ["nombre" => $Usuario, "cont" => count($Usuario), "Accesso" => $Access];
         }
 
         public function traer_para_vselect(){
@@ -186,9 +187,47 @@
             return $this->respuesta = $this->db->obtener_data();
         }
 
-        public function eliminarRegistrarUsuario($idRegistrarUsuario=''){
-            $this->db->consultas('DELETE FROM registro_cuenta_usuario WHERE registro_cuenta_usuario.id_perfil = '. $idRegistrarUsuario);
-            $this->respuesta['msg'] = 'Registro eliminado correctamente';
+        public function eliminarRegistrarUsuario($idRegistrarUsuario){
+            $this->EliminarCapacitado($idRegistrarUsuario);
+            $this->EliminarAcademica($idRegistrarUsuario);
+            $this->EliminarOtraCarrera($idRegistrarUsuario);
+            $this->EliminarPerfilUsuario($idRegistrarUsuario);
+            $this->EliminarPostgrado($idRegistrarUsuario);
+            $this->EliminarReconocimientos($idRegistrarUsuario);
+            $this->respuesta['msg'] = 'Proceso Cancelado';
+        }
+
+        public function EliminarReconocimientos($idRegistrarUsuario)
+        {
+            $this->db->consultas('DELETE FROM Reconocimientos WHERE Reconocimientos.Id_Perfil = '. $idRegistrarUsuario);
+            
+        }
+
+        public function EliminarPostgrado($idRegistrarUsuario)
+        {
+            $this->db->consultas('DELETE FROM `Postgrado` WHERE Postgrado.Id_Perfil = '. $idRegistrarUsuario);
+            
+        }
+
+        public function EliminarPerfilUsuario($idRegistrarUsuario)
+        {
+            $this->db->consultas('DELETE FROM perfil_de_usuario WHERE perfil_de_usuario.id_Perfil = '. $idRegistrarUsuario);
+        }
+
+        public function EliminarOtraCarrera($idRegistrarUsuario)
+        {
+            $this->db->consultas('DELETE FROM Otras_Carreras WHERE Otras_Carreras.Id_Perfil = '. $idRegistrarUsuario);
+        }
+
+        public function EliminarAcademica($idRegistrarUsuario)
+        {
+            $this->db->consultas('DELETE FROM imformacion_academica WHERE imformacion_academica.id_perfil = '. $idRegistrarUsuario);
+            
+        }
+
+        public function EliminarCapacitado($idRegistrarUsuario)
+        {
+            $this->db->consultas('DELETE FROM Capacitado WHERE Capacitado.Id_Perfil = '. $idRegistrarUsuario);
         }
 
         public function modificarRegistrarUsuario(){
@@ -207,28 +246,29 @@
 
         public function EliminarSMGR($id = '')
         {
-            $this->db->consultas('UPDATE registro_cuenta_usuario SET msgR= 0 WHERE registro_cuenta_usuario.id_perfil = '.$id);
+            $this->db->consultas('UPDATE perfil_de_usuario SET msgR= 0 WHERE perfil_de_usuario.id_Perfil = '.$id);
 
             $this->respuesta['msg'] = 'Registro modificado correctamente';
         }
 
         public function EliminarSMGE($id = '')
         {
-            $this->db->consultas('UPDATE registro_cuenta_usuario SET msgE = 0 WHERE registro_cuenta_usuario.id_perfil = '.$id);
+            $this->db->consultas('UPDATE perfil_de_usuario SET msgE = 0 WHERE perfil_de_usuario.id_Perfil = '.$id);
 
             $this->respuesta['msg'] = 'Registro modificado correctamente';
         }
 
-        public function AgregarSMGR($id = '')
+        public function AgregarSMGR($Valores)
         {
-            $this->db->consultas('UPDATE registro_cuenta_usuario SET msgR= msgR + 1 WHERE registro_cuenta_usuario.id_perfil = '.$id);
+            $this->datos = json_decode($Valores, true);
+            $this->db->consultas('UPDATE perfil_de_usuario SET msgR= msgR + 1, DIa_Hora = "'.$this->datos['date'].'" WHERE perfil_de_usuario.id_Perfil = '.$this->datos['id']);
 
             $this->respuesta['msg'] = 'Registro modificado correctamente';
         }
 
         public function AgregarSMGE($id = '')
         {
-            $this->db->consultas('UPDATE registro_cuenta_usuario SET msgE = msgE + 1 WHERE registro_cuenta_usuario.id_perfil = '.$id);
+            $this->db->consultas('UPDATE perfil_de_usuario SET msgE = msgE + 1 WHERE perfil_de_usuario.id_Perfil = '.$id);
 
             $this->respuesta['msg'] = 'Registro modificado correctamente';
         }

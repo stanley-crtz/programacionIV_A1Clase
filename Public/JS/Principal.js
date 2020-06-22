@@ -2,19 +2,36 @@ function cerrarSesion(){
     alertify.confirm('Alerta', '¿Está seguro de cerrar esta sesión?',function(){
         
         sessionStorage.clear();
-        window.location = '../SRP/';    
+        window.location = '../PruebaSRP/';    
         
     }, function() {
         alertify.error('Cancelado');
         
     });
 }
+if (sessionStorage.getItem('access') == "Admin") {
+    $("#Contacto").hide();
+}
+else{
+    $("#Registro").hide();
+    $("#Grafico").hide();
+}
 
-Inicio();
-
-function Inicio() {
+if (sessionStorage.getItem('Preguntas')) {
     $(`#body`).hide("scale", 1000);
-    $(`#body`).load(`Public/Module/Miperfil/Miperfil.html`, function () {
+    $(`#body`).load(`Public/Module/Foro/Foro.html`, function () {
+        
+    }).show( "scale", 1000 );
+    sessionStorage.removeItem('Preguntas')
+}
+else{
+    Inicio(sessionStorage.getItem('access'));
+}
+
+
+function Inicio(Acceso) {
+    $(`#body`).hide("scale", 1000);
+    $(`#body`).load(`Public/Module/${Acceso}/Miperfil/Miperfil.html`, function () {
 
     }).show( "scale", 1000 );
 }
@@ -27,7 +44,7 @@ $( "[class*='Mostrar']" ).click(function() {
 	$("#body").hide("fold", "slow");
 	
 	
-	$("#body").load(`Public/Module/${Modulo}/${Modulo}.html`, function() {
+	$("#body").load(`Public/Module/${sessionStorage.getItem('access')}/${Modulo}/${Modulo}.html`, function() {
 	
 	}).show("scale", "slow");
  
